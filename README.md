@@ -3,6 +3,14 @@
 <h2>Documentetion (ChatGpt)</h2>
 the Proper Human Evaluated one Doc will be Uplodaded soon ----- :>
 
+.env file :
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=gearguard
+PORT=5000
+
+
 # GearGuard Project Documentation (Current Progress)
 
 Based on the work completed so far in the project conversation and setup. 
