@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getEquipment, createEquipment, deleteEquipment, getTeams } from '../api';
+import { getEquipment, createEquipment, deleteEquipment, getTeams, getRequestsByEquipment } from '../api';
 
 const empty = {
   name: '', serial_number: '', department: '',
@@ -129,6 +129,15 @@ export default function Equipment() {
                 <button onClick={() => handleDelete(eq.id)} style={styles.deleteBtn}>
                   Delete
                 </button>
+                &nbsp;
+                <button
+                  onClick={() => handleSmartButton(eq.id, eq.name)}
+                  style={styles.smartBtn}>
+                  🔧 Maintenance
+                  {eq.open_requests > 0 && (
+                    <span style={styles.badge}>{eq.open_requests}</span>
+                  )}
+                </button>
               </td>
             </tr>
           ))}
@@ -169,4 +178,29 @@ const styles = {
     padding: '4px 12px', background: '#e53e3e', color: 'white',
     border: 'none', borderRadius: '4px', cursor: 'pointer',
   },
+  smartBtn: {
+    padding: '4px 12px', background: '#4f46e5', color: 'white',
+    border: 'none', borderRadius: '4px', cursor: 'pointer',
+    marginRight: '8px', fontSize: '0.85rem',
+    display: 'inline-flex', alignItems: 'center', gap: '6px',
+  },
+  badge: {
+    background: '#e53e3e', color: 'white', borderRadius: '999px',
+    padding: '1px 7px', fontSize: '0.75rem', fontWeight: '700',
+  },
 };
+
+async function handleSmartButton(equipmentId, equipmentName) {
+  try {
+    const { data } = await getRequestsByEquipment(equipmentId);
+    const open = data.filter(r => r.stage !== 'repaired' && r.stage !== 'scrap');
+    alert(
+      `${equipmentName}\n\nTotal Requests: ${data.length}\nOpen Requests: ${open.length}\n\n` +
+      (open.length > 0
+        ? open.map(r => `• ${r.subject} [${r.stage}]`).join('\n')
+        : 'No open requests')
+    );
+  } catch (err) {
+    alert('Failed to load requests');
+  }
+}

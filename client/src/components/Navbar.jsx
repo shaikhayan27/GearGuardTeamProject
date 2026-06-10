@@ -9,6 +9,7 @@ export default function Navbar() {
         <Link to="/teams" style={styles.link}>Teams</Link>
         <Link to="/kanban" style={styles.link}>Kanban</Link>
         <Link to="/calendar" style={styles.link}>Calendar</Link>
+        <Link to="/requests" style={styles.link}>Requests</Link>
       </div>
     </nav>
   );

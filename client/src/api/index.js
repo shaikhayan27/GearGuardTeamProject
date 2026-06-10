@@ -8,6 +8,7 @@ const API = axios.create({
 export const getTeams = () => API.get('/teams');
 export const createTeam = (data) => API.post('/teams', data);
 export const deleteTeam = (id) => API.delete(`/teams/${id}`);
+export const getMembers = (teamId) => API.get(`/teams/${teamId}`);
 
 // Equipment
 export const getEquipment = () => API.get('/equipment');

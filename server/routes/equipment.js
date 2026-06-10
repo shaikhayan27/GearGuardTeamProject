@@ -16,6 +16,23 @@ router.get('/', async (req, res) => {
   }
 });
 
+//smart button needs open request count per equipment. Update getEquipment to fetch that. In server/routes/equipment.js the GET / route, replace it with:
+router.get('/', async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT e.*, t.name AS team_name,
+        COUNT(CASE WHEN r.stage NOT IN ('repaired', 'scrap') THEN 1 END) AS open_requests
+      FROM equipment e
+      LEFT JOIN maintenance_team t ON e.team_id = t.id
+      LEFT JOIN maintenance_request r ON r.equipment_id = e.id
+      GROUP BY e.id
+    `);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET one equipment + open request count (for smart button)
 router.get('/:id', async (req, res) => {
   try {
