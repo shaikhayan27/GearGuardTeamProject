@@ -485,5 +485,5 @@ Building GearGuard provided practical exposure to several concepts that bridge a
 
 ---
 
-*GearGuard — Built as a learning project by Ayan | GLS University, Gujarat*
+*GearGuard — Built as a learning project by Ayan |*
 *Stack: React · Node.js · Express · MySQL*
