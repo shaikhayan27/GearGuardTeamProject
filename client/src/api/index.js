@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://your-railway-url.up.railway.app/api',
 });
-
 // Teams
 export const getTeams = () => API.get('/teams');
 export const createTeam = (data) => API.post('/teams', data);
