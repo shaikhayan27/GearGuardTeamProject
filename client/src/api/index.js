@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://your-railway-url.up.railway.app/api',
+  baseURL: 'https://gearguardteamproject-production.up.railway.app/api',
 });
 // Teams
 export const getTeams = () => API.get('/teams');
